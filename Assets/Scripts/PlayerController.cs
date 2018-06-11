@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
         int horizontal = (int) Input.GetAxisRaw(InputConstants.HORIZONTAL);
         int vertical = (int) Input.GetAxisRaw(InputConstants.VERTICAL);
 
+        int fire = (int) Input.GetAxisRaw(InputConstants.FIRE);
+
         Vector2 basePosition = transform.position;
         if (horizontal > 0) {
             basePosition.x += speed * Time.deltaTime;
