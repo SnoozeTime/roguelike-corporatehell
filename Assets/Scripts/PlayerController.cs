@@ -37,10 +37,23 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (horizontal != 0 || vertical != 0) {
-            animator.SetFloat("MoveX", horizontal);
-            animator.SetFloat("MoveY", vertical);
-            animator.SetFloat("LastMoveX", horizontal);
-            animator.SetFloat("LastMoveY", vertical);
+
+            // If face buttons are pressed, we are going to use them for orientation
+            // instead of just walking.
+            int faceHorizontal = (int) Input.GetAxisRaw(InputConstants.FACE_HORIZONTAL);
+            int faceVertical = (int) Input.GetAxisRaw(InputConstants.FACE_VERTICAL);
+
+            if (faceHorizontal != 0 || faceVertical != 0) {
+                animator.SetFloat("MoveX", faceHorizontal);
+                animator.SetFloat("MoveY", faceVertical);
+                animator.SetFloat("LastMoveX", faceHorizontal);
+                animator.SetFloat("LastMoveY", faceVertical);
+            } else {
+                animator.SetFloat("MoveX", horizontal);
+                animator.SetFloat("MoveY", vertical);
+                animator.SetFloat("LastMoveX", horizontal);
+                animator.SetFloat("LastMoveY", vertical);
+            }
             animator.SetBool("PlayerMoving", true);
         } else {
             animator.SetBool("PlayerMoving", false);
