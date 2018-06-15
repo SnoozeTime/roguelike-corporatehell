@@ -36,3 +36,6 @@ sysinfo.txt
 
 
 # End of https://www.gitignore.io/api/unity
+
+# Emacs backup files
+*.*~

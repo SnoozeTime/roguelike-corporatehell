@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
         // bullets will be shot, and what animation to play.
         if (faceHorizontal != 0) {
             orientation.x = faceHorizontal;
-            orientation.x = 0;
+            orientation.y = 0;
         }
 
         if (faceVertical != 0) {
