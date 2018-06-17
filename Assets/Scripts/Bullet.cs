@@ -35,9 +35,12 @@ public class Bullet: MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other != parentCollider) {
-            Debug.Log("BAAAM");
-            Destroy(gameObject);
-        } else {Debug.Log("HEHE");}
+
+        // Do not collider with other bullets.
+        if (other.gameObject.layer == (int) Layer.BULLET) {
+            return;
+        }
+
+        Destroy(gameObject);
     }
 }

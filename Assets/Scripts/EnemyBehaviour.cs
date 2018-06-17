@@ -9,6 +9,9 @@ public class EnemyBehaviour: ControllerBehaviour {
 
     private float positionOffset = 0.3f;
 
+    // First moves within 3pixel to the player.
+    private float minDistanceToPlayer = 3f;
+
     public void Start() {
         // need to follow the player.
         GameObject[] players = GameObject.FindGameObjectsWithTag(
@@ -32,7 +35,7 @@ public class EnemyBehaviour: ControllerBehaviour {
         int compareYCoord = compareWithOffset(playerTransform.position.y,
                                               transform.position.y,
                                               positionOffset);
-        if (distance > 5) {
+        if (distance > minDistanceToPlayer) {
             control.horizontalMovement = compareXCoord;
             control.verticalMovement = compareYCoord;
         } else {

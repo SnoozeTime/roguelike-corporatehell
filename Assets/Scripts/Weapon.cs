@@ -56,9 +56,9 @@ public class Weapon: MonoBehaviour {
 
             // Important, to disable collision between the shooter and its bullet.
             // Somehow does not work. ignored everything... will investigate later.
-            //Physics2D.IgnoreCollision(myCollider, bullet.GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(myCollider, bullet.GetComponent<Collider2D>());
             // dirty approach here.
-            bulletComp.SetParentCollider(myCollider);
+            //bulletComp.SetParentCollider(myCollider);
 
             // Disable shooting for a moment
             StartCoroutine(WaitBetweenShots());

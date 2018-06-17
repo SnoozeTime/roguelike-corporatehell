@@ -869,6 +869,21 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114321740967528102, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd,
+        type: 2}
+      propertyPath: behaviour
+      value: 
+      objectReference: {fileID: 1588895818}
+    - target: {fileID: 114075028539940358, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd,
+        type: 2}
+      propertyPath: timeBetweenShots
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114321740967528102, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd,
+        type: 2}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114213621453848672, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd, type: 2}
@@ -1856,6 +1871,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25ac39e5d3fab4ce59bf4e591848f6b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1588895817 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1042291918037608, guid: 9f93f77b75e9c4049bd760f2bdd2e5bd,
+    type: 2}
+  m_PrefabInternal: {fileID: 560939522}
+--- !u!114 &1588895818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588895817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26257ee4e0aae474cb766e2cef1671b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1722470677
 GameObject:
   m_ObjectHideFlags: 0

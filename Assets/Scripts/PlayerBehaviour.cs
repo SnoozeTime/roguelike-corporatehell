@@ -10,7 +10,7 @@ public class PlayerBehaviour: ControllerBehaviour {
         // instead of just walking.
         control.horizontalOrientation = (int) Input.GetAxisRaw(InputConstants.FACE_HORIZONTAL);
         control.verticalOrientation = (int) Input.GetAxisRaw(InputConstants.FACE_VERTICAL);
-        control.shouldFire = (int) Input.GetAxisRaw(InputConstants.FIRE) > 0 ? true : false;
+        control.shouldFire = control.horizontalOrientation != 0 || control.verticalOrientation != 0;
         return control;
     }
 }
