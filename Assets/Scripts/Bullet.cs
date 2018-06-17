@@ -25,7 +25,7 @@ public class Bullet: MonoBehaviour {
     }
 
     void Start() {
-        speed = 5f;
+        speed = 7f;
     }
 
     void Update() {

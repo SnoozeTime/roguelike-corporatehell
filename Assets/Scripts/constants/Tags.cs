@@ -6,4 +6,6 @@ public enum Tags {
     [DescriptionAttribute("BulletContainer")]
     BULLET_CONTAINER = 0,
 
+    [DescriptionAttribute("Player")]
+    PLAYER = 1,
 }
