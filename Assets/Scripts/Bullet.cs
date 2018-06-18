@@ -8,6 +8,7 @@ public class Bullet: MonoBehaviour {
     // Where the bullet is heading
     private Vector2 direction;
 
+    private int damage = 1;
     public void SetDirection(Vector2 newDirection) {
         direction = newDirection;
     }
@@ -41,6 +42,10 @@ public class Bullet: MonoBehaviour {
             return;
         }
 
+        Health health = other.gameObject.GetComponent<Health>();
+        if (health != null) {
+            health.Hit(damage);
+        }
         Destroy(gameObject);
     }
 }

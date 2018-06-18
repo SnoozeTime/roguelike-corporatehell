@@ -26,7 +26,7 @@ public class EnemyBehaviour: ControllerBehaviour {
     public override Control GetControls() {
         Control control = new Control();
 
-        // Try to go to the player, but keep distance :D
+        // Try to go to the player, but keep distance
         float distance = Vector2.Distance(playerTransform.position, transform.position);
 
         int compareXCoord = compareWithOffset(playerTransform.position.x,

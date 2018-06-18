@@ -8,6 +8,7 @@ using UnityEngine;
   as well as a decision to fire.
  */
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Health))]
 public class RogueController : MonoBehaviour {
 
     [SerializeField]
@@ -39,6 +40,8 @@ public class RogueController : MonoBehaviour {
         orientation = new Vector2(0, -1);
 
         gun = GetComponent<Weapon>();
+
+        GetComponent<Health>().OnNoHp += OnNoHp;
     }
 
 	// Update is called once per frame
@@ -149,4 +152,8 @@ public class RogueController : MonoBehaviour {
         return vertical != 0 || horizontal != 0;
     }
 
+    // go is this very same gameobject.
+    private void OnNoHp(GameObject go) {
+        Destroy(gameObject);
+    }
 }

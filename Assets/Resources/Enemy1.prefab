@@ -25,7 +25,8 @@ GameObject:
   - component: {fileID: 61850713323758456}
   - component: {fileID: 114237183861754704}
   - component: {fileID: 114432693173520440}
-  - component: {fileID: 114070639612302918}
+  - component: {fileID: 114877271712895030}
+  - component: {fileID: 114399137842352830}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -40,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1091649427308528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.36, y: -1.14, z: -10}
+  m_LocalPosition: {x: -5.79, y: -0.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +54,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1091649427308528}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -109,17 +110,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114070639612302918
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1091649427308528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26257ee4e0aae474cb766e2cef1671b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114237183861754704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +125,19 @@ MonoBehaviour:
     type: 2}
   timeBetweenShots: 1.5
   offset: 1
+--- !u!114 &114399137842352830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091649427308528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e969b9ee41df4e8a8b176916e380f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  armor: 0
 --- !u!114 &114432693173520440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,7 +150,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  behaviour: {fileID: 114070639612302918}
+  behaviour: {fileID: 114877271712895030}
+--- !u!114 &114877271712895030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091649427308528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26257ee4e0aae474cb766e2cef1671b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212982790242109226
 SpriteRenderer:
   m_ObjectHideFlags: 1
