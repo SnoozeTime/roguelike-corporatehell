@@ -11,7 +11,23 @@ using UnityEngine;
  */
 public class Dungeon: MonoBehaviour {
 
+    private AssetFactory factory;
+
+    public void Start() {
+        factory = new AssetFactory();
+        factory.LoadAll();
+
+        // then create three enemies.
+        InstantiateAsset(factory.GetEnemyPrefab(EnemyType.ENEMY_1),
+                                                new Vector2(0, 0));
+    }
+
     private void GenerateRoom() {
-        
+
+    }
+
+    private void InstantiateAsset(GameObject prefab, Vector2 position) {
+        Vector3 position3 = (Vector3) position;
+        Instantiate(prefab, position3, Quaternion.identity, transform);
     }
 }
