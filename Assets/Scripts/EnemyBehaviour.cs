@@ -20,50 +20,7 @@ public class EnemyBehaviour: ControllerBehaviour {
     [SerializeField]
     private List<WeightedBehaviour> controllerComponents;
 
-    private Transform playerTransform;
-
-    private float positionOffset = 0.3f;
-
-    // First moves within 3pixel to the player.
-    private float minDistanceToPlayer = 3f;
-
-    public void Start() {
-        // need to follow the player.
-        //        GameObject[] players = GameObject.FindGameObjectsWithTag(
-         //  EnumUtils.StringValueOf(Tags.PLAYER)
-        //    );
-
-        // We don't care about checking the length. if no player, the game
-        // won't work anyway.
-//        playerTransform = players[0].transform;
-    }
-
     public override Control GetControls() {
-        // Control control = new Control();
-
-        // // Try to go to the player, but keep distance
-        // float distance = Vector2.Distance(playerTransform.position, transform.position);
-
-        // int compareXCoord = compareWithOffset(playerTransform.position.x,
-        //                                       transform.position.x,
-        //                                       positionOffset);
-        // int compareYCoord = compareWithOffset(playerTransform.position.y,
-        //                                       transform.position.y,
-        //                                       positionOffset);
-        // if (distance > minDistanceToPlayer) {
-        //     control.horizontalMovement = compareXCoord;
-        //     control.verticalMovement = compareYCoord;
-        // } else {
-        //     // Just adjust X then.
-        //     control.horizontalMovement = compareXCoord;
-        // }
-        // // Face the player.
-        // control.horizontalOrientation = compareXCoord;
-        // control.verticalOrientation = compareYCoord;
-
-        // // if same line/column, shoot.
-        // control.shouldFire = compareXCoord == 0 || compareYCoord == 0;
-
         return BlendControllerBehaviours();
     }
 
@@ -76,7 +33,6 @@ public class EnemyBehaviour: ControllerBehaviour {
       Later some behaviour might only be here for shooting. In that case, we will ignore them.
      */
     private Control BlendControllerBehaviours() {
-        Debug.Log("WIll blend behaviours");
         // The blended values. They are float that will be later rounded to int.
         float blendedHMvt = 0f;
         float blendedVMvt = 0f;
@@ -95,14 +51,6 @@ public class EnemyBehaviour: ControllerBehaviour {
                 blendedFire += wb.weight;
             }
 
-            Debug.Log("-------------");
-            Debug.Log(wb.behaviour.GetControls().horizontalMovement);
-            Debug.Log(wb.behaviour.GetControls().verticalMovement);
-            Debug.Log(wb.behaviour.GetControls().horizontalOrientation);
-            Debug.Log(wb.behaviour.GetControls().verticalOrientation);
-            Debug.Log("-------------");
-
-
             weightSum += wb.weight;
         }
 
@@ -118,19 +66,11 @@ public class EnemyBehaviour: ControllerBehaviour {
         // Then, assign to Control
         // TODO Value can be either -1, 0 or 1...
         Control control = new Control();
-        control.horizontalMovement = (int) (blendedHMvt + 0.5);
-        control.verticalMovement = (int) (blendedVMvt + 0.5);
-        control.horizontalOrientation = (int) (blendedHOrientation + 0.5);
-        control.verticalOrientation = (int) (blendedVOrientation + 0.5);
+        control.horizontalMovement = (int) Math.Round(blendedHMvt, MidpointRounding.AwayFromZero);
+        control.verticalMovement = (int) Math.Round(blendedVMvt, MidpointRounding.AwayFromZero);
+        control.horizontalOrientation = (int) Math.Round(blendedHOrientation, MidpointRounding.AwayFromZero);
+        control.verticalOrientation = (int) Math.Round(blendedVOrientation, MidpointRounding.AwayFromZero);
         control.shouldFire = blendedFire >= 0.5;
-
-        Debug.Log("----- BLENDED VALUES --------");
-        Debug.Log(control.horizontalMovement);
-        Debug.Log(control.verticalMovement);
-        Debug.Log(control.horizontalOrientation);
-        Debug.Log(control.verticalOrientation);
-        Debug.Log("-------------");
-
 
         return control;
     }

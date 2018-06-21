@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114432693173520440}
   - component: {fileID: 114877271712895030}
   - component: {fileID: 114399137842352830}
-  - component: {fileID: 114690457074911376}
+  - component: {fileID: 114124727594160878}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -111,6 +111,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114124727594160878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091649427308528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f4e716d2f4947c49ad851502f9f4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114237183861754704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,18 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   behaviour: {fileID: 114877271712895030}
---- !u!114 &114690457074911376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1091649427308528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24151bcfa06794cd28f50ea7737ee4bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &114877271712895030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerComponents:
-  - behaviour: {fileID: 114690457074911376}
+  - behaviour: {fileID: 0}
     weight: 1
 --- !u!212 &212982790242109226
 SpriteRenderer:
