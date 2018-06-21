@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114964809728290718}
   - component: {fileID: 114936254003302096}
   - component: {fileID: 114624498726258050}
+  - component: {fileID: 114420547574650146}
   m_Layer: 8
   m_Name: Enemy2
   m_TagString: Untagged
@@ -110,6 +111,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114420547574650146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521686186810944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26257ee4e0aae474cb766e2cef1671b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerComponents:
+  - behaviour: {fileID: 114936254003302096}
+    weight: 1
 --- !u!114 &114538354411221930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  behaviour: {fileID: 114936254003302096}
+  behaviour: {fileID: 114420547574650146}
 --- !u!212 &212203048763073500
 SpriteRenderer:
   m_ObjectHideFlags: 1

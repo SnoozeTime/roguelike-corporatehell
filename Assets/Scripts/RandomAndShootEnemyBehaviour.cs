@@ -47,6 +47,7 @@ public class RandomAndShootEnemyBehaviour: ControllerBehaviour {
                 control.verticalOrientation = compareYCoord;
             }
         }
+
         return control;
     }
 

@@ -42,12 +42,16 @@ public class EnemyBehaviour: ControllerBehaviour {
 
         float weightSum = 0f;
         foreach (WeightedBehaviour wb in controllerComponents) {
-            blendedHMvt += wb.behaviour.GetControls().horizontalMovement * wb.weight;
-            blendedVMvt += wb.behaviour.GetControls().verticalMovement * wb.weight;
-            blendedHOrientation += wb.behaviour.GetControls().horizontalOrientation * wb.weight;
-            blendedVOrientation += wb.behaviour.GetControls().verticalOrientation * wb.weight;
 
-            if (wb.behaviour.GetControls().shouldFire) {
+            // Important here! Just get the control once in case it trigger side effects
+            // or state machine transitions...
+            Control behaviourControl = wb.behaviour.GetControls();
+            blendedHMvt += behaviourControl.horizontalMovement * wb.weight;
+            blendedVMvt += behaviourControl.verticalMovement * wb.weight;
+            blendedHOrientation += behaviourControl.horizontalOrientation * wb.weight;
+            blendedVOrientation += behaviourControl.verticalOrientation * wb.weight;
+
+            if (behaviourControl.shouldFire) {
                 blendedFire += wb.weight;
             }
 

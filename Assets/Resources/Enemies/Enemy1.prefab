@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerComponents:
-  - behaviour: {fileID: 0}
+  - behaviour: {fileID: 114124727594160878}
     weight: 1
 --- !u!212 &212982790242109226
 SpriteRenderer:
