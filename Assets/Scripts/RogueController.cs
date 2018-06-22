@@ -131,25 +131,41 @@ public class RogueController : MonoBehaviour {
     private bool Move(int horizontal, int vertical) {
 
         Vector2 basePosition = transform.position;
-        if (horizontal > 0) {
+        if (horizontal > 0 && CanMoveRight()) {
             basePosition.x += speed * Time.deltaTime;
         }
 
-        if (horizontal < 0) {
+        if (horizontal < 0 && CanMoveLeft()) {
             basePosition.x -= speed * Time.deltaTime;
         }
 
-        if (vertical > 0) {
+        if (vertical > 0 && CanMoveUp()) {
              basePosition.y += speed * Time.deltaTime;
         }
 
-        if (vertical < 0) {
+        if (vertical < 0 && CanMoveDown()) {
             basePosition.y -= speed * Time.deltaTime;
 
         }
         transform.position = basePosition;
 
         return vertical != 0 || horizontal != 0;
+    }
+
+    private bool CanMoveLeft() {
+        return transform.position.x > -7.5 || (transform.position.y > 0 && transform.position.y < 0.5);
+    }
+
+    private bool CanMoveRight() {
+        return transform.position.x < 7.5 || (transform.position.y > 0 && transform.position.y < 0.5);
+    }
+
+    private bool CanMoveUp() {
+        return transform.position.y < 3.5 || (transform.position.x > -.5 && transform.position.x < 0.5);
+    }
+
+    private bool CanMoveDown() {
+        return transform.position.y > -3.5 || (transform.position.x > -.5 && transform.position.x < 0.5);
     }
 
     // go is this very same gameobject.
