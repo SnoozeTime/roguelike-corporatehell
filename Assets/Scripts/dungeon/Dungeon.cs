@@ -12,18 +12,32 @@ using UnityEngine;
 public class Dungeon: MonoBehaviour {
 
     private AssetFactory factory;
+    private DungeonBuilder builder;
+
+    private int currentIndex;
 
     public void Start() {
         factory = new AssetFactory();
         factory.LoadAll();
 
-        // then create three enemies.
+        builder = new DungeonBuilder(factory);
+
+        DungeonBuilder.DungeonBuilderOutput generatedRooms = builder.GenerateDungeon();
+        for (int i = 0; i < generatedRooms.rooms.Length; i++) {
+
+            if (generatedRooms.rooms[i] != null) {
+                InstantiateAsset(generatedRooms.rooms[i],
+                                 new Vector2(0,0));
+
+                if (i != generatedRooms.entranceIndex) {
+                    generatedRooms.rooms[i].SetActive(false);
+                }
+            }
+        }
+        currentIndex = generatedRooms.rooms[i].entranceIndex;
+
         InstantiateAsset(factory.GetEnemyPrefab(EnemyType.ENEMY_1),
                                                 new Vector2(0, 0));
-    }
-
-    private void GenerateRoom() {
-
     }
 
     private void InstantiateAsset(GameObject prefab, Vector2 position) {
