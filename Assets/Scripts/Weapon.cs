@@ -33,6 +33,9 @@ public class Weapon: MonoBehaviour {
         myCollider = GetComponent<Collider2D>();
     }
 
+    public void OnEnable() {
+        canShoot = true;
+    }
     /*
       Will fire a bullet along the given direction. The bullet
       position will be the weapon + an offset

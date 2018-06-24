@@ -18,14 +18,14 @@ public class Dungeon: MonoBehaviour {
     private int currentIndex;
 
     // Need the player to teleport him correctly.
-    private Transform player;
+    private RogueController player;
 
     List<GameObject> rooms = new List<GameObject>();
 
-    public void Start() {
+    public void Awake() {
         // We don't care about checking for null. If no player, the game
         // won't work anyway.
-        player = FetchUtils.FetchGameObjectByTag(Tags.PLAYER).transform;
+        player = FetchUtils.FetchGameObjectByTag(Tags.PLAYER).GetComponent<RogueController>();
 
         factory = new AssetFactory();
         factory.LoadAll();
@@ -45,10 +45,6 @@ public class Dungeon: MonoBehaviour {
 
             GameObject room = generatedRooms.rooms[i];
             if (room != null) {
-
-                Debug.Log("ROOM INDEX");
-                Debug.Log(i);
-                Debug.Log(generatedRooms.entranceIndex);
 
                 if (i != generatedRooms.entranceIndex) {
                     room.SetActive(false);
@@ -71,9 +67,6 @@ public class Dungeon: MonoBehaviour {
             }
         }
         currentIndex = generatedRooms.entranceIndex;
-
-        InstantiateAsset(factory.GetEnemyPrefab(EnemyType.ENEMY_1),
-                                                new Vector2(0, 0));
     }
 
     public Room GetCurrentRoom() {
@@ -81,21 +74,99 @@ public class Dungeon: MonoBehaviour {
     }
 
     private void OnEnterDoor(int doorId) {
+        // first, change the player position.
+        TeleportPlayer(doorId);
+
+        int nextIndex = GetNextRoomIndex(doorId);
+        ChangeRoom(currentIndex, nextIndex);
+    }
+
+    private int GetNextRoomIndex(int doorId) {
         if (doorId == DungeonBuilder.NORTH_DOOR_MASK) {
-            Debug.Log("HIT NORTH");
+            return currentIndex - DungeonBuilder.COLS;
         } else if (doorId == DungeonBuilder.EAST_DOOR_MASK) {
-            Debug.Log("HIT EAST");
+            return currentIndex + 1;
         } else if (doorId == DungeonBuilder.SOUTH_DOOR_MASK) {
-            Debug.Log("HIT SOUTH");
+            return currentIndex + DungeonBuilder.COLS;
         } else if (doorId == DungeonBuilder.WEST_DOOR_MASK) {
-            Debug.Log("HIT WEST");
+            return currentIndex - 1;
         } else {
             // TODO Throw something here
+            throw new System.ArgumentException("Door Id should be a valid value");
         }
+
+    }
+    private void TeleportPlayer(int doorId) {
+        Vector2 newOrientation;
+        Vector2 newPosition;
+        if (doorId == DungeonBuilder.NORTH_DOOR_MASK) {
+            newPosition = new Vector2(0f, -3.4f);
+            newOrientation = new Vector2(0f, -1f);
+        } else if (doorId == DungeonBuilder.EAST_DOOR_MASK) {
+            newPosition = new Vector2(-7.4f, 0f);
+            newOrientation = new Vector2(1f, 0f);
+        } else if (doorId == DungeonBuilder.SOUTH_DOOR_MASK) {
+            newPosition = new Vector2(0f, 3.4f);
+            newOrientation = new Vector2(0f, 1f);
+        } else if (doorId == DungeonBuilder.WEST_DOOR_MASK) {
+            newPosition = new Vector2(7.4f, 0f);
+            newOrientation = new Vector2(-1f, 0f);
+        } else {
+            // TODO Throw something here
+            throw new System.ArgumentException("Door Id should be a valid value");
+        }
+
+        player.transform.position = newPosition;
+        player.Orientation = newOrientation;
+    }
+
+    private void ChangeRoom(int previousIndex, int nextIndex) {
+        // Enable next room and disable previous room
+        rooms[previousIndex].SetActive(false);
+        rooms[nextIndex].SetActive(true);
+
+        currentIndex = nextIndex;
     }
 
     private GameObject InstantiateAsset(GameObject prefab, Vector2 position) {
         Vector3 position3 = (Vector3) position;
         return Instantiate(prefab, position3, Quaternion.identity, transform) as GameObject;
+    }
+
+    // ---------------------------------------------------------
+    // Used by the controller to restrict movement near the doors
+    // ---------------------------------------------------------
+
+    // A player/controller can go north if the door is opened and he is
+    // aligned with it.
+    public bool CanGoNorth(Vector2 position) {
+        Room room = GetCurrentRoom();
+        bool isAligned = (position.x > -.5 && position.x < 0.5);
+        bool isInRoom = position.y < 3.5;
+
+        return isInRoom || (isAligned && room.IsNorthDoorOpened());
+    }
+
+    public bool CanGoSouth(Vector2 position) {
+        Room room = GetCurrentRoom();
+        bool isInRoom = position.y > -3.5;
+        bool isAligned = (position.x > -.5 && position.x < 0.5);
+
+        return isInRoom || (isAligned && room.IsSouthDoorOpened());
+    }
+
+    public bool CanGoEast(Vector2 position) {
+        Room room = GetCurrentRoom();
+        bool isAligned = (position.y > 0 && position.y < 0.5);
+        bool isInRoom = position.x < 7.5;
+        return isInRoom || (isAligned && room.IsEastDoorOpened());
+    }
+
+    public bool CanGoWest(Vector2 position) {
+        Room room = GetCurrentRoom();
+        bool isAligned = (position.y > 0 && position.y < 0.5);
+        bool isInRoom = position.x > -7.5;
+
+        return isInRoom || (isAligned && room.IsWestDoorOpened());
     }
 }

@@ -16,6 +16,7 @@ public class RandomAndShootEnemyBehaviour: ControllerBehaviour {
 
     void OnEnable() {
         ChooseRandomTarget();
+        shouldMove = true;
     }
 
     public override Control GetControls() {

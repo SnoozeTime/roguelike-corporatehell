@@ -15,7 +15,7 @@ public class Seek: ControllerBehaviour {
         set {target = value;}
     }
 
-    private float positionOffset = 0.3f;
+    private float positionOffset = 0.5f;
 
     // First moves within 3pixel to the player.
     private float minDistanceToPlayer = 3f;

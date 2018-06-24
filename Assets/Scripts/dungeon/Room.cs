@@ -67,7 +67,7 @@ public class Room: MonoBehaviour {
     private bool HasDoor(int doorMask) {
         foreach (Door door in doors) {
             int afterApply = door.DoorId | doorMask;
-            if (afterApply == door.DoorId) {
+            if (afterApply == door.DoorId && door.gameObject.activeSelf) {
                 return true;
             }
         }
@@ -78,17 +78,18 @@ public class Room: MonoBehaviour {
     private bool IsDoorOpened(int doorMask) {
         Door door = GetDoor(doorMask);
 
-        if (door != null) {
+        if (door != null && door.gameObject.activeSelf) {
             return door.IsOpened;
         }
 
         return false;
     }
 
+    // Will only return active doors...
     private Door GetDoor(int doorMask) {
         foreach (Door door in doors) {
             int afterApply = door.DoorId | doorMask;
-            if (afterApply == door.DoorId) {
+            if (afterApply == door.DoorId && door.gameObject.activeSelf) {
                 return door;
             }
         }

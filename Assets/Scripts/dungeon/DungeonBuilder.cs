@@ -13,15 +13,15 @@ public class DungeonBuilder {
     public static int WEST_DOOR_MASK = 1 << 4;
 
     // Size of the dungeon
-    private static int COLS = 10;
-    private static int ROWS = 10;
+    public static int COLS = 10;
+    public static int ROWS = 10;
 
     public class DungeonBuilderOutput {
         public GameObject[] rooms;
         public int entranceIndex;
     }
 
-    public struct RoomTemplate {
+    public class RoomTemplate {
         /*
           Will be compared to door masks in order to determine whether
           or not the room has doors on the north, south, east and west location.
@@ -33,6 +33,9 @@ public class DungeonBuilder {
 
         // visual appearance
         public InteriorType interiorType;
+
+        // How many enemies.
+        public List<EnemyType> enemies = new List<EnemyType>();
     }
 
     // Load empty rooms from the prefab
@@ -53,13 +56,15 @@ public class DungeonBuilder {
         template.doorsMask = 8;
         template.interiorType = InteriorType.INTERIOR_1;
         template.roomType = RoomType.ENTRANCE;
+        template.enemies.Add(EnemyType.ENEMY_1);
         GameObject[] rooms = new GameObject[COLS*ROWS];
 
         RoomTemplate template2 = new RoomTemplate();
         template2.doorsMask = 2;
         template2.interiorType = InteriorType.INTERIOR_1;
         template2.roomType = RoomType.NORMAL;
-
+        template2.enemies.Add(EnemyType.ENEMY_2);
+        template2.enemies.Add(EnemyType.ENEMY_2);
 
         // For fun. Two rooms.
         GameObject room = CreateRoomFromTemplate(template);
@@ -81,8 +86,9 @@ public class DungeonBuilder {
       Will create the room from a template and add random enemies
     */
     private GameObject CreateRoomFromTemplate(RoomTemplate template) {
-        GameObject room = Instantiate(factory.GetRoomPrefab(template.interiorType));
+        GameObject room = Instantiate(factory.GetRoomPrefab(template.interiorType), parent);
 
+        // Set the door based on the templates.
         foreach (Transform child in room.transform) {
             Door door = child.GetComponent<Door>();
 
@@ -97,6 +103,11 @@ public class DungeonBuilder {
             }
         }
 
+        // Add some enemies ;D
+        foreach (EnemyType enemyType in template.enemies) {
+            Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
+        }
+
         return room;
     }
 
@@ -105,8 +116,8 @@ public class DungeonBuilder {
         return afterApply == mask;
     }
 
-    private GameObject Instantiate(GameObject prefab) {
-        return UnityEngine.Object.Instantiate(prefab, new Vector3(), Quaternion.identity, parent)
+    private GameObject Instantiate(GameObject prefab, Transform theParent) {
+        return UnityEngine.Object.Instantiate(prefab, new Vector3(), Quaternion.identity, theParent)
             as GameObject;
     }
 }
