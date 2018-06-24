@@ -7,14 +7,9 @@ using UnityEngine;
 public class SeekPlayer: Seek {
 
     void Start() {
-        // need to follow the player.
-        GameObject[] players = GameObject.FindGameObjectsWithTag(
-            EnumUtils.StringValueOf(Tags.PLAYER)
-            );
-
-        // We don't care about checking the length. if no player, the game
+        // We don't care about checking for null. If no player, the game
         // won't work anyway.
-        Transform playerTransform = players[0].transform;
+        Transform playerTransform = FetchUtils.FetchGameObjectByTag(Tags.PLAYER).transform;
 
         this.Target = playerTransform;
     }

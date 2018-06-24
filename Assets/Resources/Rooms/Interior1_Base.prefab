@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4988570726018104}
   - component: {fileID: 212917852813176172}
   - component: {fileID: 61739001604774004}
+  - component: {fileID: 114419956432593732}
   m_Layer: 0
   m_Name: WestTeleport
   m_TagString: Untagged
@@ -41,6 +42,7 @@ GameObject:
   - component: {fileID: 61616500661714474}
   - component: {fileID: 61367242072507022}
   - component: {fileID: 61384570956839330}
+  - component: {fileID: 114154984476910170}
   m_Layer: 0
   m_Name: Interior1_Base
   m_TagString: Untagged
@@ -76,6 +78,7 @@ GameObject:
   - component: {fileID: 4299402030093424}
   - component: {fileID: 212852925408920956}
   - component: {fileID: 61171570627717162}
+  - component: {fileID: 114434157471228724}
   m_Layer: 0
   m_Name: SouthTeleport
   m_TagString: Untagged
@@ -179,7 +182,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.013965964, y: -0.007980347}
@@ -304,7 +307,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.013965964, y: -0.007980347}
@@ -329,7 +332,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.013965964, y: -0.007980347}
@@ -354,7 +357,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.013965964, y: -0.007980347}
@@ -370,6 +373,43 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90268004, y: 0.9840393}
   m_EdgeRadius: 0
+--- !u!114 &114154984476910170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388082237806640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f1aae11de0d4cd0926a9e1a17f4d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114419956432593732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1019240160641336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cf682f2fd57411cb9d62f5c848e8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorId: 16
+  isOpened: 1
+--- !u!114 &114434157471228724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645729853654302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cf682f2fd57411cb9d62f5c848e8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorId: 8
+  isOpened: 1
 --- !u!114 &114650387505045398
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,4 +8,8 @@ public enum Tags {
 
     [DescriptionAttribute("Player")]
     PLAYER = 1,
+
+    // The generated map. Can be needed to detect what doors are opened...
+    [DescriptionAttribute("Dungeon")]
+    DUNGEON = 2,
 }

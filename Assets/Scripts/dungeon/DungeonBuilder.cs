@@ -37,9 +37,12 @@ public class DungeonBuilder {
 
     // Load empty rooms from the prefab
     private AssetFactory factory;
+    // Parent of the objects that are going to be created.
+    private Transform parent;
 
-    public DungeonBuilder(AssetFactory factory) {
+    public DungeonBuilder(AssetFactory factory, Transform parent) {
         this.factory = factory;
+        this.parent = parent;
     }
 
     /*
@@ -78,7 +81,7 @@ public class DungeonBuilder {
       Will create the room from a template and add random enemies
     */
     private GameObject CreateRoomFromTemplate(RoomTemplate template) {
-        GameObject room = factory.GetRoomPrefab(template.interiorType);
+        GameObject room = Instantiate(factory.GetRoomPrefab(template.interiorType));
 
         foreach (Transform child in room.transform) {
             Door door = child.GetComponent<Door>();
@@ -86,6 +89,7 @@ public class DungeonBuilder {
             // if it's a door.
             if (door != null) {
                 if (HasDoor(template.doorsMask, door.DoorId)) {
+                    Debug.Log(door.DoorId + " Is active");
                     child.gameObject.SetActive(true);
                 } else {
                     child.gameObject.SetActive(false);
@@ -101,4 +105,8 @@ public class DungeonBuilder {
         return afterApply == mask;
     }
 
+    private GameObject Instantiate(GameObject prefab) {
+        return UnityEngine.Object.Instantiate(prefab, new Vector3(), Quaternion.identity, parent)
+            as GameObject;
+    }
 }

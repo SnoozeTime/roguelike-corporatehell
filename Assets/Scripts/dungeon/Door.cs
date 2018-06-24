@@ -14,11 +14,25 @@ public class Door: MonoBehaviour {
     [SerializeField]
     private bool isOpened;
 
+    // Triggered when player walks on it. Will send
+    // the door id
+    public delegate void EnterDoor(int doorId);
+    public event EnterDoor OnEnterDoor;
+
     void OnTriggerEnter2D(Collider2D other) {
-        // If player, trigger an event.
+        // If player, trigger an event
+        if (other.gameObject.tag == EnumUtils.StringValueOf(Tags.PLAYER)) {
+            if (OnEnterDoor != null) {
+                OnEnterDoor(doorId);
+            }
+        }
     }
 
     public int DoorId {
         get {return doorId;}
+    }
+
+    public bool IsOpened {
+        get {return isOpened;}
     }
 }
