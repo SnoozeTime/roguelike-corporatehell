@@ -176,11 +176,18 @@ public class RogueController : MonoBehaviour {
         return vertical != 0 || horizontal != 0;
     }
 
+    // ----------------------------------------------------------------
+    // HEALTH AND HITS
+    // ----------------------------------------------------------------
+
     // go is this very same gameobject.
     private void OnNoHp(GameObject go) {
         Destroy(gameObject);
     }
 
+    // ----------------------------------------------------------------
+    // WEAPON SELECTION
+    // ----------------------------------------------------------------
     private Weapon GetCurrentWeapon() {
         if (currentWeaponIndex >= weapons.Count) {
             return null;

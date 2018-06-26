@@ -41,8 +41,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4039422543740658}
-  - component: {fileID: 114961770514170262}
-  - component: {fileID: 114627984755644878}
+  - component: {fileID: 61926262850981628}
+  - component: {fileID: 114340567318592180}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -127,6 +127,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61926262850981628
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281098553816124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.7223156, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5468482, y: 1}
+  m_EdgeRadius: 0
 --- !u!61 &61993320715011970
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -208,7 +233,7 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   armor: 0
---- !u!114 &114627984755644878
+--- !u!114 &114340567318592180
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -216,13 +241,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1281098553816124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f88d41025bf614a029eb9a800b3746e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f17462ec7c274a678e9b4a5b584d6d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenShots: 0.5
-  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
-    type: 2}
-  offset: 1
+  swordAnimationTime: 0.5
 --- !u!114 &114956333826125576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,24 +260,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
     type: 2}
   offset: 1
---- !u!114 &114961770514170262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281098553816124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cab956e73b77488eac6f2167cf99605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
-    type: 2}
-  timeBetweenShots: 0.5
-  offset: 1
-  canShoot: 0
-  myCollider: {fileID: 0}
-  bulletContainer: {fileID: 0}
 --- !u!212 &212158781119936136
 SpriteRenderer:
   m_ObjectHideFlags: 1

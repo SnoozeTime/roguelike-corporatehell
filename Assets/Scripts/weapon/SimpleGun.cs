@@ -5,6 +5,9 @@ using UnityEngine;
 public class SimpleGun: Weapon {
 
     [SerializeField]
+    private float timeBetweenShots;
+
+    [SerializeField]
     private GameObject bulletPrefab;
 
     [SerializeField]
@@ -38,5 +41,9 @@ public class SimpleGun: Weapon {
         Physics2D.IgnoreCollision(myCollider, bullet.GetComponent<Collider2D>());
         // dirty approach here.
         //bulletComp.SetParentCollider(myCollider);
+    }
+
+    protected override float GetTimeBetweenAttacks() {
+        return timeBetweenShots;
     }
 }
