@@ -10,6 +10,9 @@ public class Health: MonoBehaviour {
     private int health;
 
     [SerializeField]
+    private int maxHealth;
+
+    [SerializeField]
     private int armor;
 
     // Event sent when we have no more HP.
@@ -18,6 +21,9 @@ public class Health: MonoBehaviour {
     // by stats system to count how many enemy you killed... and so on
     public delegate void NoHpAction(GameObject go);
     public event NoHpAction OnNoHp;
+
+    public delegate void GotHitAction(Health healthComp);
+    public event GotHitAction OnHit;
 
     /*
       Can Hit with negative damage (i.e. heal)
@@ -32,5 +38,17 @@ public class Health: MonoBehaviour {
                 OnNoHp(gameObject);
             }
         }
+
+        if (OnHit != null) {
+            OnHit(this);
+        }
+    }
+
+    public int CurrentHealth() {
+        return health;
+    }
+
+    public int MaxHealth() {
+        return maxHealth;
     }
 }

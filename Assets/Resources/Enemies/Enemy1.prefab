@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
+  maxHealth: 2
   armor: 0
 --- !u!114 &114432693173520440
 MonoBehaviour:
