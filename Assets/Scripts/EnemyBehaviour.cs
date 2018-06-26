@@ -39,6 +39,7 @@ public class EnemyBehaviour: ControllerBehaviour {
         float blendedHOrientation = 0f;
         float blendedVOrientation = 0f;
         float blendedFire = 0f;
+        float blendedNextWeapon = 0f;
 
         float weightSum = 0f;
         foreach (WeightedBehaviour wb in controllerComponents) {
@@ -50,10 +51,12 @@ public class EnemyBehaviour: ControllerBehaviour {
             blendedVMvt += behaviourControl.verticalMovement * wb.weight;
             blendedHOrientation += behaviourControl.horizontalOrientation * wb.weight;
             blendedVOrientation += behaviourControl.verticalOrientation * wb.weight;
+            blendedNextWeapon += behaviourControl.selectNextWeapon * wb.weight;
 
             if (behaviourControl.shouldFire) {
                 blendedFire += wb.weight;
             }
+
 
             weightSum += wb.weight;
         }
@@ -65,6 +68,7 @@ public class EnemyBehaviour: ControllerBehaviour {
             blendedHOrientation /= weightSum;
             blendedVOrientation /= weightSum;
             blendedFire /= weightSum;
+            blendedNextWeapon /= weightSum;
         }
 
         // Then, assign to Control
@@ -75,6 +79,7 @@ public class EnemyBehaviour: ControllerBehaviour {
         control.horizontalOrientation = (int) Math.Round(blendedHOrientation, MidpointRounding.AwayFromZero);
         control.verticalOrientation = (int) Math.Round(blendedVOrientation, MidpointRounding.AwayFromZero);
         control.shouldFire = blendedFire >= 0.5;
+        control.selectNextWeapon = (int) Math.Round(blendedNextWeapon, MidpointRounding.AwayFromZero);
 
         return control;
     }

@@ -15,5 +15,5 @@ public static class InputConstants {
     public static string FACE_HORIZONTAL = "FaceHorizontal";
     public static string FACE_VERTICAL = "FaceVertical";
 
-    public static string FIRE = "Fire";
+    public static string NEXT_WEAPON = "NextWeapon";
 }

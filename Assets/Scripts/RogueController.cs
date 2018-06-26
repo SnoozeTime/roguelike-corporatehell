@@ -31,8 +31,8 @@ public class RogueController : MonoBehaviour {
 
     // Stuff to shoot with
     private Weapon gun;
-
-
+    private List<Weapon> weapons;
+    private int currentWeaponIndex;
     // The current dungeon.
     private Dungeon dungeon;
 
@@ -44,13 +44,18 @@ public class RogueController : MonoBehaviour {
 
     // --------------------------------------
     void Start() {
+
+        // Weapon is a child gameObject. The reason is that it can have its own
+        // animations and colliders
+        weapons = FetchUtils.FetchChildrenWithComponent<Weapon>(transform);
+        currentWeaponIndex = 0;
+        UpdateWeapon();
+
         animator = GetComponent<Animator>();
         isMoving = false;
 
         // by default, oriented down
         orientation = new Vector2(0, -1);
-
-        gun = GetComponent<Weapon>();
 
         GetComponent<Health>().OnNoHp += OnNoHp;
 
@@ -80,15 +85,20 @@ public class RogueController : MonoBehaviour {
                           control.horizontalOrientation,
                           control.verticalOrientation);
 
+        // -----------------------------------------------
+        // 4. Switch weapon
+        // -----------------------------------------------
+        SelectNextWeapon(control.selectNextWeapon);
+
         // --------------------------------------------------
-        // 4. FIIIIIRREEEEEE
+        // 5. FIIIIIRREEEEEE
         // ---------------------------------------------------
-        if (control.shouldFire && gun != null) {
-            gun.Fire(orientation);
+        if (control.shouldFire && GetCurrentWeapon() != null) {
+            GetCurrentWeapon().Fire(orientation);
         }
 
         // ----------------------------------------------------
-        // 5. ANIMATIONS
+        // 6. ANIMATIONS
         // ----------------------------------------------------
 
         if (isMoving) {
@@ -169,5 +179,43 @@ public class RogueController : MonoBehaviour {
     // go is this very same gameobject.
     private void OnNoHp(GameObject go) {
         Destroy(gameObject);
+    }
+
+    private Weapon GetCurrentWeapon() {
+        if (currentWeaponIndex >= weapons.Count) {
+            return null;
+        }
+
+        return weapons[currentWeaponIndex];
+    }
+
+    private void SelectNextWeapon(int direction) {
+        if (direction == 0 || weapons.Count == 0) {
+            return;
+        }
+        int offset = direction > 0 ? 1 : -1;
+
+        int nextWeaponIndex;
+        if (currentWeaponIndex == 0 && offset == -1) {
+            nextWeaponIndex = weapons.Count -1;
+        } else {
+            nextWeaponIndex = (currentWeaponIndex + offset) % weapons.Count;
+        }
+
+        if (nextWeaponIndex != currentWeaponIndex) {
+            // Disable all weapon but the current
+            currentWeaponIndex = nextWeaponIndex;
+            UpdateWeapon();
+        }
+    }
+
+    private void UpdateWeapon() {
+        for (int i = 0; i < weapons.Count; i++) {
+            if (i == currentWeaponIndex) {
+                weapons[i].gameObject.SetActive(true);
+            } else {
+                weapons[i].gameObject.SetActive(false);
+            }
+        }
     }
 }

@@ -9,4 +9,7 @@ public class Control {
     public int horizontalOrientation;
     public int verticalOrientation;
     public bool shouldFire;
+
+    // > 0 means next weapon, < 0 mean previous weapon
+    public int selectNextWeapon;
 }

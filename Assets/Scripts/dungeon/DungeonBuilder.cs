@@ -95,7 +95,6 @@ public class DungeonBuilder {
             // if it's a door.
             if (door != null) {
                 if (HasDoor(template.doorsMask, door.DoorId)) {
-                    Debug.Log(door.DoorId + " Is active");
                     child.gameObject.SetActive(true);
                 } else {
                     child.gameObject.SetActive(false);

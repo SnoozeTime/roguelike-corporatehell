@@ -3,6 +3,7 @@
   unique object based on its tag.
 */
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class FetchUtils {
 
@@ -21,5 +22,20 @@ public static class FetchUtils {
         }
 
         return null;
+    }
+
+    /*
+      We need that for example to fetch all the doors in a room, or all
+      the weapons attached to somebody
+    */
+    public static List<T> FetchChildrenWithComponent<T>(Transform parent) {
+        List<T> childrenWithComp = new List<T>();
+        foreach (Transform child in parent) {
+            T comp = child.GetComponent<T>();
+            if (comp != null) {
+                childrenWithComp.Add(comp);
+            }
+        }
+        return childrenWithComp;
     }
 }

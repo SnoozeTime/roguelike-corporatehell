@@ -10,18 +10,7 @@ public class Room: MonoBehaviour {
     private List<Door> doors;
 
     public void Start() {
-
-        doors = new List<Door>();
-        // Populate the doors by looking at its children objects.
-        foreach (Transform child in transform) {
-            Door door = child.GetComponent<Door>();
-
-            // if it's a door.
-            if (door != null) {
-                doors.Add(door);
-            }
-        }
-
+        doors = FetchUtils.FetchChildrenWithComponent<Door>(transform);
     }
 
     public List<Door> Doors {

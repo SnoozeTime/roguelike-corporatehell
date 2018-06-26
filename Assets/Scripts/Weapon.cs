@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public class Weapon: MonoBehaviour {
 
     [SerializeField]
@@ -30,7 +29,7 @@ public class Weapon: MonoBehaviour {
             bulletContainer = bulletContainers[0];
         }
 
-        myCollider = GetComponent<Collider2D>();
+        myCollider = transform.parent.GetComponent<Collider2D>();
     }
 
     public void OnEnable() {
