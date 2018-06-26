@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4400950677489308}
-  - component: {fileID: 114681097235596862}
+  - component: {fileID: 114576611545780276}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -170,6 +170,21 @@ MonoBehaviour:
     type: 2}
   timeBetweenShots: 1.5
   offset: 1
+--- !u!114 &114576611545780276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1738980874392446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88d41025bf614a029eb9a800b3746e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenShots: 1.5
+  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
+    type: 2}
+  offset: 1
 --- !u!114 &114624498726258050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,21 +199,6 @@ MonoBehaviour:
   health: 2
   maxHealth: 2
   armor: 0
---- !u!114 &114681097235596862
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738980874392446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cab956e73b77488eac6f2167cf99605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
-    type: 2}
-  timeBetweenShots: 1.5
-  offset: 1
 --- !u!114 &114936254003302096
 MonoBehaviour:
   m_ObjectHideFlags: 1

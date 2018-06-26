@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4039422543740658}
   - component: {fileID: 114961770514170262}
+  - component: {fileID: 114627984755644878}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -57,7 +58,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4707354686335464}
-  - component: {fileID: 114004797417323656}
+  - component: {fileID: 114956333826125576}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -169,21 +170,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114004797417323656
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1519333270989308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cab956e73b77488eac6f2167cf99605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
-    type: 2}
-  timeBetweenShots: 0.5
-  offset: 1
 --- !u!114 &114213621453848672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,6 +208,36 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   armor: 0
+--- !u!114 &114627984755644878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281098553816124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88d41025bf614a029eb9a800b3746e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenShots: 0.5
+  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
+    type: 2}
+  offset: 1
+--- !u!114 &114956333826125576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519333270989308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88d41025bf614a029eb9a800b3746e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenShots: 0.5
+  bulletPrefab: {fileID: 1257091819492490, guid: b5c9a7237e7044c06978ba1deaaa75d3,
+    type: 2}
+  offset: 1
 --- !u!114 &114961770514170262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,6 +253,9 @@ MonoBehaviour:
     type: 2}
   timeBetweenShots: 0.5
   offset: 1
+  canShoot: 0
+  myCollider: {fileID: 0}
+  bulletContainer: {fileID: 0}
 --- !u!212 &212158781119936136
 SpriteRenderer:
   m_ObjectHideFlags: 1
