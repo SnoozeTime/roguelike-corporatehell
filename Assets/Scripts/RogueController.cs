@@ -220,6 +220,7 @@ public class RogueController : MonoBehaviour {
         for (int i = 0; i < weapons.Count; i++) {
             if (i == currentWeaponIndex) {
                 weapons[i].gameObject.SetActive(true);
+                weapons[i].IsSelected();
             } else {
                 weapons[i].gameObject.SetActive(false);
             }

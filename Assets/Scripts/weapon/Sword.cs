@@ -17,16 +17,49 @@ public class Sword: Weapon {
 
     private BoxCollider2D swordHitBox;
 
+    private static Vector2 northOffset = new Vector2(0, 0.5f);
+    private static Vector2 southOffset = new Vector2(0, -0.5f);
+    private static Vector2 eastOffset = new Vector2(0.5f, 0);
+    private static Vector2 westOffset = new Vector2(-0.5f, 0);
+
+    private static Vector2 northSouthSize = new Vector2(1f, 0.5f);
+    private static Vector2 eastWestSize = new Vector2(0.5f, 1f);
+
     public void Start() {
         base.Start();
         swordHitBox = GetComponent<BoxCollider2D>();
     }
 
     public void OnEnable() {
+        //swordHitBox.enabled = false;
+    }
+
+    public override void IsSelected() {
         swordHitBox.enabled = false;
     }
 
     protected override void Attack(Vector2 direction) {
+        // Depending on the direction, will change the collider size and offset.
+        if (direction.x > 0) {
+            // east
+            swordHitBox.offset = eastOffset;
+            swordHitBox.size = eastWestSize;
+        } else if (direction.x < 0) {
+            // west
+            swordHitBox.offset = westOffset;
+            swordHitBox.size = eastWestSize;
+        } else if (direction.y > 0) {
+            // north
+            swordHitBox.offset = northOffset;
+            swordHitBox.size = northSouthSize;
+        } else if (direction.y < 0) {
+            // south
+            swordHitBox.offset = southOffset;
+            swordHitBox.size = northSouthSize;
+        } else {
+            // ERROR
+        }
+
         StartCoroutine(SwingSword(direction));
     }
 

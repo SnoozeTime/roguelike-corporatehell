@@ -66,7 +66,7 @@ public class Health: MonoBehaviour {
     }
 
     private IEnumerator WaitAndEnableHit() {
-        yiebld return new WaitForSeconds(invisibilityTime);
+        yield return new WaitForSeconds(invisibilityTime);
         canTakeDmg = true;
     }
     public int CurrentHealth() {

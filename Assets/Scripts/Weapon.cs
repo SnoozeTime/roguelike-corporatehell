@@ -18,6 +18,13 @@ public abstract class Weapon: MonoBehaviour {
     public void OnEnable() {
         canAttack = true;
     }
+
+    /*
+      Called when the weapon is selected. Can be used for example to disable
+      colliders.
+     */
+    public abstract void IsSelected();
+
     /*
       Will fire a bullet along the given direction. The bullet
       position will be the weapon + an offset

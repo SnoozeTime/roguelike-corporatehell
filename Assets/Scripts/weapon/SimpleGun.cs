@@ -21,6 +21,8 @@ public class SimpleGun: Weapon {
         bulletContainer = FetchUtils.FetchGameObjectByTag(Tags.BULLET_CONTAINER);
     }
 
+    public override void IsSelected() {}
+
     protected override void Attack(Vector2 direction) {
         // Initial position of the bullet
         Vector2 position = transform.position;
