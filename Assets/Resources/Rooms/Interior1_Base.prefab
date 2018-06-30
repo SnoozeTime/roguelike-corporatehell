@@ -185,7 +185,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013965964, y: -0.007980347}
+  m_Offset: {x: -0.013965964, y: 0.091867685}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -196,7 +196,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.90268004, y: 0.9840393}
+  m_Size: {x: 0.90268004, y: 0.78434324}
   m_EdgeRadius: 0
 --- !u!61 &61367242072507022
 BoxCollider2D:
@@ -310,7 +310,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013965964, y: -0.007980347}
+  m_Offset: {x: -0.013965964, y: 0.095195755}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -321,7 +321,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.90268004, y: 0.9840393}
+  m_Size: {x: 0.90268004, y: 0.7776871}
   m_EdgeRadius: 0
 --- !u!61 &61805576220279722
 BoxCollider2D:
@@ -335,7 +335,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013965964, y: -0.007980347}
+  m_Offset: {x: -0.013965964, y: 0.09186739}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -346,7 +346,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.90268004, y: 0.9840393}
+  m_Size: {x: 0.90268004, y: 0.78434384}
   m_EdgeRadius: 0
 --- !u!61 &61961162766057988
 BoxCollider2D:
@@ -360,7 +360,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013965964, y: -0.007980347}
+  m_Offset: {x: -0.013965964, y: 0.08521104}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -371,7 +371,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.90268004, y: 0.9840393}
+  m_Size: {x: 0.90268004, y: 0.79765654}
   m_EdgeRadius: 0
 --- !u!114 &114154984476910170
 MonoBehaviour:
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorId: 16
-  isOpened: 1
+  isOpened: 0
 --- !u!114 &114434157471228724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorId: 8
-  isOpened: 1
+  isOpened: 0
 --- !u!114 &114650387505045398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorId: 4
-  isOpened: 1
+  isOpened: 0
 --- !u!114 &114913309024960910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorId: 2
-  isOpened: 1
+  isOpened: 0
 --- !u!212 &212049924836508040
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -12,6 +12,9 @@ using System.Collections.Generic;
  */
 public class Dungeon: MonoBehaviour {
 
+    // Level number. Used by the builder to generate the level.
+    private int levelNumber = 1;
+
     private AssetFactory factory;
     private DungeonBuilder builder;
 
@@ -37,7 +40,7 @@ public class Dungeon: MonoBehaviour {
     }
 
     private void GenerateDungeon() {
-        DungeonBuilder.DungeonBuilderOutput generatedRooms = builder.GenerateDungeon();
+        DungeonBuilder.DungeonBuilderOutput generatedRooms = builder.GenerateDungeon(levelNumber);
 
         rooms.Clear();
 

@@ -43,43 +43,103 @@ public class DungeonBuilder {
     // Parent of the objects that are going to be created.
     private Transform parent;
 
+    // How to generate the map
+    private GenerationAlgorithm algo;
+
     public DungeonBuilder(AssetFactory factory, Transform parent) {
         this.factory = factory;
         this.parent = parent;
+        algo = new NaiveAlgorithm();
+    }
+
+    private void DebugPrintLayout(List<List<RoomType>> layout) {
+        string debugString = "";
+        for (int row = 0; row < layout.Count; row++) {
+
+            for (int col = 0; col < layout[row].Count; col++) {
+                debugString += layout[row][col].ToString();
+                debugString += ",";
+            }
+
+            debugString += "\n";
+        }
+        Debug.Log(debugString);
     }
 
     /*
       Will generate a dungeon randomly
      */
-    public DungeonBuilderOutput GenerateDungeon() {
-        RoomTemplate template = new RoomTemplate();
-        template.doorsMask = 8;
-        template.interiorType = InteriorType.INTERIOR_1;
-        template.roomType = RoomType.ENTRANCE;
-        template.enemies.Add(EnemyType.ENEMY_1);
+    public DungeonBuilderOutput GenerateDungeon(int levelNumber) {
+
+        List<List<RoomType>> layout = algo.GenerateMapLayout();
+        DebugPrintLayout(layout);
         GameObject[] rooms = new GameObject[COLS*ROWS];
-
-        RoomTemplate template2 = new RoomTemplate();
-        template2.doorsMask = 2;
-        template2.interiorType = InteriorType.INTERIOR_1;
-        template2.roomType = RoomType.NORMAL;
-        template2.enemies.Add(EnemyType.ENEMY_2);
-        template2.enemies.Add(EnemyType.ENEMY_2);
-
-        // For fun. Two rooms.
-        GameObject room = CreateRoomFromTemplate(template);
-        rooms[GetRoomIndex(0, 0)] = room;
-        GameObject room2 = CreateRoomFromTemplate(template2);
-        rooms[GetRoomIndex(1, 0)] = room2;
-
         DungeonBuilderOutput output = new DungeonBuilderOutput();
+
+        for (int row = 0; row < layout.Count; row++) {
+            for (int col = 0; col < layout[row].Count; col++) {
+
+                if (layout[row][col] != RoomType.NONE) {
+
+                    int roomIndex = GetRoomIndex(row, col);
+                    int doorMask = ComputeDoorMask(col, row, layout);
+                    RoomTemplate template = CreateRandomTemplate(layout[row][col], doorMask);
+                    rooms[roomIndex] = CreateRoomFromTemplate(template);
+
+                    if (layout[row][col] == RoomType.ENTRANCE) {
+                        output.entranceIndex = roomIndex;
+                    }
+                }
+            }
+        }
         output.rooms = rooms;
-        output.entranceIndex = GetRoomIndex(0,0);
         return output;
     }
 
     private int GetRoomIndex(int row, int col) {
         return row * COLS + col;
+    }
+
+    /*
+      Each room type (entrance, normal, ...) will have some template that
+      can be chosen from. Then, there is some randomness (e.g. number of enemies)
+     */
+    private RoomTemplate CreateRandomTemplate(RoomType roomType, int doorMask) {
+        RoomTemplate template = new RoomTemplate();
+        template.doorsMask = doorMask;
+        template.interiorType = InteriorType.INTERIOR_1;
+        template.roomType = roomType;
+        template.enemies.Add(EnemyType.ENEMY_2);
+        return template;
+    }
+
+    private int ComputeDoorMask(int colIndex, int rowIndex, List<List<RoomType>> layout) {
+        int doorMask = 0;
+        if (colIndex > 0) {
+            if (layout[rowIndex][colIndex-1] != RoomType.NONE) {
+                doorMask |= WEST_DOOR_MASK;
+            }
+        }
+
+        if (colIndex < COLS - 1) {
+            if (layout[rowIndex][colIndex+1] != RoomType.NONE) {
+                doorMask |= EAST_DOOR_MASK;
+            }
+        }
+
+        if (rowIndex > 0) {
+            if (layout[rowIndex-1][colIndex] != RoomType.NONE) {
+                doorMask |= NORTH_DOOR_MASK;
+            }
+        }
+
+        if (rowIndex < ROWS - 1) {
+            if (layout[rowIndex+1][colIndex] != RoomType.NONE) {
+                doorMask |= SOUTH_DOOR_MASK;
+            }
+        }
+
+        return doorMask;
     }
 
     /*
@@ -104,7 +164,8 @@ public class DungeonBuilder {
 
         // Add some enemies ;D
         foreach (EnemyType enemyType in template.enemies) {
-            Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
+            GameObject enemy = Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
+            enemy.GetComponent<Health>().OnNoHp += room.GetComponent<Room>().OnEnemyKilled;
         }
 
         return room;

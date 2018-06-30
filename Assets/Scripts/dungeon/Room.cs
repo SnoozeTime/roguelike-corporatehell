@@ -9,6 +9,12 @@ public class Room: MonoBehaviour {
 
     private List<Door> doors;
 
+    // True if all enemies have been killed
+    private bool IsCompleted;
+
+    // Will open the door if enemies alive < 0
+    private int enemiesAlive;
+
     public void Start() {
         doors = FetchUtils.FetchChildrenWithComponent<Door>(transform);
     }
@@ -84,5 +90,15 @@ public class Room: MonoBehaviour {
         }
 
         return null;
+    }
+
+    public void OnEnemyKilled(GameObject go) {
+        enemiesAlive -= 1;
+
+        if (enemiesAlive <= 0) {
+            foreach (Door door in doors) {
+                door.Open();
+            }
+        }
     }
 }

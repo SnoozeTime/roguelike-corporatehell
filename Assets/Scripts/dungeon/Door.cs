@@ -34,5 +34,10 @@ public class Door: MonoBehaviour {
 
     public bool IsOpened {
         get {return isOpened;}
+        set {isOpened = value;}
+    }
+
+    public void Open() {
+        isOpened = true;
     }
 }
