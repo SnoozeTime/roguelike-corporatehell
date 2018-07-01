@@ -13,8 +13,8 @@ public class DungeonBuilder {
     public static int WEST_DOOR_MASK = 1 << 4;
 
     // Size of the dungeon
-    public static int COLS = 10;
-    public static int ROWS = 10;
+    public static int COLS = 20;
+    public static int ROWS = 20;
 
     public class DungeonBuilderOutput {
         public GameObject[] rooms;
