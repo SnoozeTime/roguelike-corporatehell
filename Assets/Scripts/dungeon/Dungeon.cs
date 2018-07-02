@@ -23,6 +23,17 @@ public class Dungeon: MonoBehaviour {
     // Need the player to teleport him correctly.
     private RogueController player;
 
+    private static float roomWidth = 16.0f;
+    private static float roomHeight = 8.0f;
+
+    public static float HalfWidth {
+        get { return roomWidth/2;}
+    }
+
+    public static float HalfHeight {
+        get { return roomHeight/2;}
+    }
+
     List<GameObject> rooms = new List<GameObject>();
 
     public void Awake() {

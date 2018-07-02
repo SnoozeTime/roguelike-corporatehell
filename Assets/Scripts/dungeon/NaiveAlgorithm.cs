@@ -27,13 +27,12 @@ public class NaiveAlgorithm: GenerationAlgorithm {
         // Place the exit
         Vector2Int exitIndex = PickAvailableIndex(layout, entranceIndex);
         layout[exitIndex.x][exitIndex.y] = RoomType.EXIT;
-        Debug.Log("EXIT INDEX -> (" + exitIndex.x + ", " + exitIndex.y + ")");
+
         Vector2Int chestIndex = PickAvailableIndex(layout, entranceIndex);
         layout[chestIndex.x][chestIndex.y] = RoomType.CHEST;
-        Debug.Log("CHEST INDEX -> (" + chestIndex.x + ", " + chestIndex.y + ")");
+
         Vector2Int shopIndex = PickAvailableIndex(layout, entranceIndex);
         layout[shopIndex.x][shopIndex.y] = RoomType.SHOP;
-        Debug.Log("SHOP INDEX -> (" + shopIndex.x + ", " + shopIndex.y + ")");
 
         // Fill blanks.
         FillRoomsInBetween(layout, entranceIndex, exitIndex);

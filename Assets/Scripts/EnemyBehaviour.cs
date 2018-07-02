@@ -40,47 +40,73 @@ public class EnemyBehaviour: ControllerBehaviour {
         float blendedVOrientation = 0f;
         float blendedFire = 0f;
         float blendedNextWeapon = 0f;
-
-        float weightSum = 0f;
+        Vector2 blendedAttackDirection = new Vector2();
+        float weightMvtSum = 0f;
+        float weightAtkSum = 0f;
         foreach (WeightedBehaviour wb in controllerComponents) {
 
             // Important here! Just get the control once in case it trigger side effects
             // or state machine transitions...
             Control behaviourControl = wb.behaviour.GetControls();
-            blendedHMvt += behaviourControl.horizontalMovement * wb.weight;
-            blendedVMvt += behaviourControl.verticalMovement * wb.weight;
-            blendedHOrientation += behaviourControl.horizontalOrientation * wb.weight;
-            blendedVOrientation += behaviourControl.verticalOrientation * wb.weight;
-            blendedNextWeapon += behaviourControl.selectNextWeapon * wb.weight;
 
-            if (behaviourControl.shouldFire) {
-                blendedFire += wb.weight;
+            // ---------------------------------------------------------
+            // 1. BLEND MOVEMENT
+            // ---------------------------------------------------------
+
+            if (behaviourControl.movementControl != null) {
+                blendedHMvt += behaviourControl.movementControl.horizontalMovement * wb.weight;
+                blendedVMvt += behaviourControl.movementControl.verticalMovement * wb.weight;
+                blendedHOrientation += behaviourControl.movementControl.horizontalOrientation * wb.weight;
+                blendedVOrientation += behaviourControl.movementControl.verticalOrientation * wb.weight;
+                weightMvtSum += wb.weight;
             }
 
+            // ---------------------------------------------------------
+            // 2. BLEND ATTACK
+            // ---------------------------------------------------------
+            if (behaviourControl.attackControl != null) {
+                blendedNextWeapon += behaviourControl.attackControl.selectNextWeapon * wb.weight;
+                blendedAttackDirection += behaviourControl.attackControl.direction * wb.weight;
 
-            weightSum += wb.weight;
+                if (behaviourControl.attackControl.shouldFire) {
+                    blendedFire += wb.weight;
+                }
+
+                weightAtkSum += wb.weight;
+            }
         }
 
         // put back the values between 0 and 1.
-        if (weightSum != 0) {
-            blendedHMvt /= weightSum;
-            blendedVMvt /= weightSum;
-            blendedHOrientation /= weightSum;
-            blendedVOrientation /= weightSum;
-            blendedFire /= weightSum;
-            blendedNextWeapon /= weightSum;
+        if (weightMvtSum != 0) {
+            blendedHMvt /= weightMvtSum;
+            blendedVMvt /= weightMvtSum;
+            blendedHOrientation /= weightMvtSum;
+            blendedVOrientation /= weightMvtSum;
         }
 
+        if (weightAtkSum != 0) {
+            blendedFire /= weightAtkSum;
+            blendedNextWeapon /= weightAtkSum;
+            blendedAttackDirection /= weightAtkSum;
+        }
         // Then, assign to Control
         // TODO Value can be either -1, 0 or 1...
         Control control = new Control();
-        control.horizontalMovement = (int) Math.Round(blendedHMvt, MidpointRounding.AwayFromZero);
-        control.verticalMovement = (int) Math.Round(blendedVMvt, MidpointRounding.AwayFromZero);
-        control.horizontalOrientation = (int) Math.Round(blendedHOrientation, MidpointRounding.AwayFromZero);
-        control.verticalOrientation = (int) Math.Round(blendedVOrientation, MidpointRounding.AwayFromZero);
-        control.shouldFire = blendedFire >= 0.5;
-        control.selectNextWeapon = (int) Math.Round(blendedNextWeapon, MidpointRounding.AwayFromZero);
 
+        MovementControl movementControl = new MovementControl();
+        movementControl.horizontalMovement = (int) Math.Round(blendedHMvt, MidpointRounding.AwayFromZero);
+        movementControl.verticalMovement = (int) Math.Round(blendedVMvt, MidpointRounding.AwayFromZero);
+        movementControl.horizontalOrientation = (int) Math.Round(blendedHOrientation, MidpointRounding.AwayFromZero);
+        movementControl.verticalOrientation = (int) Math.Round(blendedVOrientation, MidpointRounding.AwayFromZero);
+
+        AttackControl attackControl = new AttackControl();
+        attackControl.shouldFire = blendedFire >= 0.5;
+        attackControl.selectNextWeapon = (int) Math.Round(blendedNextWeapon, MidpointRounding.AwayFromZero);
+        attackControl.direction = new Vector2((int) Math.Round(blendedAttackDirection.x, MidpointRounding.AwayFromZero),
+                                              (int) Math.Round(blendedAttackDirection.y, MidpointRounding.AwayFromZero));
+
+        control.movementControl = movementControl;
+        control.attackControl = attackControl;
         return control;
     }
 }

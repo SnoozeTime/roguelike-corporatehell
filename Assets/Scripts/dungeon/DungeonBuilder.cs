@@ -109,7 +109,19 @@ public class DungeonBuilder {
         template.doorsMask = doorMask;
         template.interiorType = InteriorType.INTERIOR_1;
         template.roomType = roomType;
-        template.enemies.Add(EnemyType.ENEMY_2);
+
+        // How many enemies per room? between 2 and 6?
+        // TODO put that in some configuration
+        int numberOfEnemies = GameUtils.Random.Randint(2, 6);
+        for (int i = 0; i < numberOfEnemies; i++) {
+            // Enemy 1, 30% of chance of spawning it.
+            if (GameUtils.Random.Randint(0, 100) <= 70) {
+                template.enemies.Add(EnemyType.ENEMY_2);
+            } else {
+                template.enemies.Add(EnemyType.ENEMY_1);
+            }
+        }
+
         return template;
     }
 
@@ -166,6 +178,10 @@ public class DungeonBuilder {
         foreach (EnemyType enemyType in template.enemies) {
             GameObject enemy = Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
             enemy.GetComponent<Health>().OnNoHp += room.GetComponent<Room>().OnEnemyKilled;
+
+            int x = GameUtils.Random.Randint((int) -Dungeon.HalfWidth+1, (int) Dungeon.HalfWidth-1);
+            int y = GameUtils.Random.Randint((int) -Dungeon.HalfHeight+1, (int) Dungeon.HalfHeight-1);
+            enemy.transform.position = new Vector2(x, y);
         }
 
         return room;

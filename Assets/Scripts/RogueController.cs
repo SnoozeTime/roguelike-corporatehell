@@ -70,44 +70,49 @@ public class RogueController : MonoBehaviour {
         // ------------------------------------------------------
         Control control = behaviour.GetControls();
 
-        // ----------------------------------------------------
-        // 2. APPLY MOVEMENT
-        // ----------------------------------------------------
-        isMoving = Move(control.horizontalMovement,
-                        control.verticalMovement);
+        if (control.movementControl != null) {
+            // ----------------------------------------------------
+            // 2. APPLY MOVEMENT
+            // ----------------------------------------------------
+            isMoving = Move(control.movementControl.horizontalMovement,
+                            control.movementControl.verticalMovement);
 
 
-        // ------------------------------------------------------
-        // 3. UPDATE ORIENTATION
-        // -------------------------------------------------------
-        SetNewOrientation(control.horizontalMovement,
-                          control.verticalMovement,
-                          control.horizontalOrientation,
-                          control.verticalOrientation);
+            // ------------------------------------------------------
+            // 3. UPDATE ORIENTATION
+            // -------------------------------------------------------
+            SetNewOrientation(control.movementControl.horizontalMovement,
+                              control.movementControl.verticalMovement,
+                              control.movementControl.horizontalOrientation,
+                              control.movementControl.verticalOrientation);
+        }
 
-        // -----------------------------------------------
-        // 4. Switch weapon
-        // -----------------------------------------------
-        SelectNextWeapon(control.selectNextWeapon);
+        if (control.attackControl != null) {
+            // -----------------------------------------------
+            // 4. Switch weapon
+            // -----------------------------------------------
+            SelectNextWeapon(control.attackControl.selectNextWeapon);
 
-        // --------------------------------------------------
-        // 5. FIIIIIRREEEEEE
-        // ---------------------------------------------------
-        if (control.shouldFire && GetCurrentWeapon() != null) {
-            GetCurrentWeapon().Fire(orientation);
+            // --------------------------------------------------
+            // 5. FIIIIIRREEEEEE
+            // ---------------------------------------------------
+            if (control.attackControl.shouldFire && GetCurrentWeapon() != null) {
+                GetCurrentWeapon().Fire(control.attackControl.direction);
+            }
         }
 
         // ----------------------------------------------------
         // 6. ANIMATIONS
         // ----------------------------------------------------
 
-        if (isMoving) {
-            if (control.horizontalOrientation != 0 || control.verticalOrientation != 0) {
-                animator.SetFloat("MoveX", control.horizontalOrientation);
-                animator.SetFloat("MoveY", control.verticalOrientation);
+        if (isMoving && control.movementControl != null) {
+            if (control.movementControl.horizontalOrientation != 0 ||
+                control.movementControl.verticalOrientation != 0) {
+                animator.SetFloat("MoveX", control.movementControl.horizontalOrientation);
+                animator.SetFloat("MoveY", control.movementControl.verticalOrientation);
             } else {
-                animator.SetFloat("MoveX", control.horizontalMovement);
-                animator.SetFloat("MoveY", control.verticalMovement);
+                animator.SetFloat("MoveX", control.movementControl.horizontalMovement);
+                animator.SetFloat("MoveY", control.movementControl.verticalMovement);
             }
         }
 

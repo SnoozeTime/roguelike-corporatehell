@@ -21,31 +21,35 @@ public class RandomAndShootEnemyBehaviour: ControllerBehaviour {
 
     public override Control GetControls() {
         Control control = new Control();
-
+        control.movementControl = new MovementControl();
+        control.attackControl = new AttackControl();
 
         // Try to go to the player, but keep distance :D
         float distance = Vector2.Distance(target, transform.position);
+        int compareXCoord = compareWithOffset(target.x,
+                                              transform.position.x,
+                                              positionOffset);
+        int compareYCoord = compareWithOffset(target.y,
+                                              transform.position.y,
+                                              positionOffset);
 
         if (shouldMove) {
             if (distance < arriveOffset) {
-                control.shouldFire = true;
+
+                // Will fire so we need fire and direction
+                control.attackControl.shouldFire = true;
+                control.attackControl.direction = new Vector2(compareXCoord, compareYCoord);
                 shouldMove = false;
 
                 // Then wait a bit and find a new target.
                 StartCoroutine(WaitAndChooseTarget());
             } else {
-                int compareXCoord = compareWithOffset(target.x,
-                                                      transform.position.x,
-                                                      positionOffset);
-                int compareYCoord = compareWithOffset(target.y,
-                                                      transform.position.y,
-                                                      positionOffset);
 
-                control.horizontalMovement = compareXCoord;
-                control.verticalMovement = compareYCoord;
+                control.movementControl.horizontalMovement = compareXCoord;
+                control.movementControl.verticalMovement = compareYCoord;
                 // Face the target.
-                control.horizontalOrientation = compareXCoord;
-                control.verticalOrientation = compareYCoord;
+                control.movementControl.horizontalOrientation = compareXCoord;
+                control.movementControl.verticalOrientation = compareYCoord;
             }
         }
 

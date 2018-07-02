@@ -23,7 +23,8 @@ public class Seek: ControllerBehaviour {
 
     public override Control GetControls() {
         Control control = new Control();
-
+        control.movementControl = new MovementControl();
+        control.attackControl = new AttackControl();
         if (target != null) {
             float distance = Vector2.Distance(target.position, transform.position);
 
@@ -34,19 +35,20 @@ public class Seek: ControllerBehaviour {
                                                                 transform.position.y,
                                                                 positionOffset);
             if (distance > minDistanceToPlayer) {
-                control.horizontalMovement = compareXCoord;
-                control.verticalMovement = compareYCoord;
+                control.movementControl.horizontalMovement = compareXCoord;
+                control.movementControl.verticalMovement = compareYCoord;
             } else {
                 // Just adjust X then.
-                control.horizontalMovement = compareXCoord;
+                control.movementControl.horizontalMovement = compareXCoord;
             }
 
             // Face the player.
-            control.horizontalOrientation = compareXCoord;
-            control.verticalOrientation = compareYCoord;
+            control.movementControl.horizontalOrientation = compareXCoord;
+            control.movementControl.verticalOrientation = compareYCoord;
 
             // if same line/column, shoot.
-            control.shouldFire = compareXCoord == 0 || compareYCoord == 0;
+            control.attackControl.shouldFire = compareXCoord == 0 || compareYCoord == 0;
+            control.attackControl.direction = new Vector2(compareXCoord, compareYCoord);
         }
 
         return control;
