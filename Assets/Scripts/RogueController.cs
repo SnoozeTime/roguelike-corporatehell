@@ -74,17 +74,17 @@ public class RogueController : MonoBehaviour {
             // ----------------------------------------------------
             // 2. APPLY MOVEMENT
             // ----------------------------------------------------
-            isMoving = Move(control.movementControl.horizontalMovement,
-                            control.movementControl.verticalMovement);
+            isMoving = Move((int) control.movementControl.movement.x,
+                            (int) control.movementControl.movement.y);
 
 
             // ------------------------------------------------------
             // 3. UPDATE ORIENTATION
             // -------------------------------------------------------
-            SetNewOrientation(control.movementControl.horizontalMovement,
-                              control.movementControl.verticalMovement,
-                              control.movementControl.horizontalOrientation,
-                              control.movementControl.verticalOrientation);
+            SetNewOrientation((int) control.movementControl.movement.x,
+                              (int) control.movementControl.movement.y,
+                              (int) control.movementControl.orientation.x,
+                              (int) control.movementControl.orientation.y);
         }
 
         if (control.attackControl != null) {
@@ -106,13 +106,13 @@ public class RogueController : MonoBehaviour {
         // ----------------------------------------------------
 
         if (isMoving && control.movementControl != null) {
-            if (control.movementControl.horizontalOrientation != 0 ||
-                control.movementControl.verticalOrientation != 0) {
-                animator.SetFloat("MoveX", control.movementControl.horizontalOrientation);
-                animator.SetFloat("MoveY", control.movementControl.verticalOrientation);
+            if (control.movementControl.orientation.x != 0 ||
+                control.movementControl.orientation.y != 0) {
+                animator.SetFloat("MoveX", control.movementControl.orientation.x);
+                animator.SetFloat("MoveY", control.movementControl.orientation.y);
             } else {
-                animator.SetFloat("MoveX", control.movementControl.horizontalMovement);
-                animator.SetFloat("MoveY", control.movementControl.verticalMovement);
+                animator.SetFloat("MoveX", control.movementControl.movement.x);
+                animator.SetFloat("MoveY", control.movementControl.movement.y);
             }
         }
 

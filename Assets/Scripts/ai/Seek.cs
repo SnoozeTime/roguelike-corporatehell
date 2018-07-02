@@ -35,16 +35,14 @@ public class Seek: ControllerBehaviour {
                                                                 transform.position.y,
                                                                 positionOffset);
             if (distance > minDistanceToPlayer) {
-                control.movementControl.horizontalMovement = compareXCoord;
-                control.movementControl.verticalMovement = compareYCoord;
-            } else {
+                control.movementControl.movement = new Vector2(compareXCoord, compareYCoord);
+                            } else {
                 // Just adjust X then.
-                control.movementControl.horizontalMovement = compareXCoord;
+                control.movementControl.movement = new Vector2(compareXCoord, 0);
             }
 
             // Face the player.
-            control.movementControl.horizontalOrientation = compareXCoord;
-            control.movementControl.verticalOrientation = compareYCoord;
+            control.movementControl.orientation = new Vector2(compareXCoord, compareYCoord);
 
             // if same line/column, shoot.
             control.attackControl.shouldFire = compareXCoord == 0 || compareYCoord == 0;

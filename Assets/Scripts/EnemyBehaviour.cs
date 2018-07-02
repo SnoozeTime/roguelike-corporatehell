@@ -34,10 +34,8 @@ public class EnemyBehaviour: ControllerBehaviour {
      */
     private Control BlendControllerBehaviours() {
         // The blended values. They are float that will be later rounded to int.
-        float blendedHMvt = 0f;
-        float blendedVMvt = 0f;
-        float blendedHOrientation = 0f;
-        float blendedVOrientation = 0f;
+        Vector2 blendedMovement = new Vector2();
+        Vector2 blendedOrientation = new Vector2();
         float blendedFire = 0f;
         float blendedNextWeapon = 0f;
         Vector2 blendedAttackDirection = new Vector2();
@@ -54,10 +52,8 @@ public class EnemyBehaviour: ControllerBehaviour {
             // ---------------------------------------------------------
 
             if (behaviourControl.movementControl != null) {
-                blendedHMvt += behaviourControl.movementControl.horizontalMovement * wb.weight;
-                blendedVMvt += behaviourControl.movementControl.verticalMovement * wb.weight;
-                blendedHOrientation += behaviourControl.movementControl.horizontalOrientation * wb.weight;
-                blendedVOrientation += behaviourControl.movementControl.verticalOrientation * wb.weight;
+                blendedMovement += behaviourControl.movementControl.movement * wb.weight;
+                blendedOrientation += behaviourControl.movementControl.orientation * wb.weight;
                 weightMvtSum += wb.weight;
             }
 
@@ -78,10 +74,8 @@ public class EnemyBehaviour: ControllerBehaviour {
 
         // put back the values between 0 and 1.
         if (weightMvtSum != 0) {
-            blendedHMvt /= weightMvtSum;
-            blendedVMvt /= weightMvtSum;
-            blendedHOrientation /= weightMvtSum;
-            blendedVOrientation /= weightMvtSum;
+            blendedMovement /= weightMvtSum;
+            blendedOrientation /= weightMvtSum;
         }
 
         if (weightAtkSum != 0) {
@@ -94,10 +88,10 @@ public class EnemyBehaviour: ControllerBehaviour {
         Control control = new Control();
 
         MovementControl movementControl = new MovementControl();
-        movementControl.horizontalMovement = (int) Math.Round(blendedHMvt, MidpointRounding.AwayFromZero);
-        movementControl.verticalMovement = (int) Math.Round(blendedVMvt, MidpointRounding.AwayFromZero);
-        movementControl.horizontalOrientation = (int) Math.Round(blendedHOrientation, MidpointRounding.AwayFromZero);
-        movementControl.verticalOrientation = (int) Math.Round(blendedVOrientation, MidpointRounding.AwayFromZero);
+        movementControl.movement = new Vector2((int) Math.Round(blendedMovement.x, MidpointRounding.AwayFromZero),
+                                               (int) Math.Round(blendedMovement.y, MidpointRounding.AwayFromZero));
+        movementControl.orientation = new Vector2((int) Math.Round(blendedOrientation.x, MidpointRounding.AwayFromZero),
+                                              (int) Math.Round(blendedOrientation.y, MidpointRounding.AwayFromZero));
 
         AttackControl attackControl = new AttackControl();
         attackControl.shouldFire = blendedFire >= 0.5;

@@ -6,10 +6,8 @@ using UnityEngine;
 */
 public class MovementControl {
     // TODO - Change to vector2 instead of two elements.
-    public int horizontalMovement;
-    public int verticalMovement;
+    public Vector2 movement;
 
     // TODO - Change to vector2 instead of two elements.
-    public int horizontalOrientation;
-    public int verticalOrientation;
+    public Vector2 orientation;
 }

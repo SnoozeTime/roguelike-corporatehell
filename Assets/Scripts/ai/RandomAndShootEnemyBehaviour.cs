@@ -44,12 +44,9 @@ public class RandomAndShootEnemyBehaviour: ControllerBehaviour {
                 // Then wait a bit and find a new target.
                 StartCoroutine(WaitAndChooseTarget());
             } else {
-
-                control.movementControl.horizontalMovement = compareXCoord;
-                control.movementControl.verticalMovement = compareYCoord;
+                control.movementControl.movement = new Vector2(compareXCoord, compareYCoord);
                 // Face the target.
-                control.movementControl.horizontalOrientation = compareXCoord;
-                control.movementControl.verticalOrientation = compareYCoord;
+                control.movementControl.orientation = new Vector2(compareXCoord, compareYCoord);
             }
         }
 
