@@ -36,6 +36,7 @@ public class SimpleGun: Weapon {
         }
         // Set the speed and direction of the bullet. If no bullet component. CRASH
         Bullet bulletComp = bullet.GetComponent<Bullet>();
+        Debug.Log(direction.x + " " + direction.y);
         bulletComp.SetDirection(direction);
 
         // Important, to disable collision between the shooter and its bullet.

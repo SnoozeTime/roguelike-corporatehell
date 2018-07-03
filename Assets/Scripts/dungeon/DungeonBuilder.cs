@@ -174,15 +174,15 @@ public class DungeonBuilder {
             }
         }
 
-        // Add some enemies ;D
-        foreach (EnemyType enemyType in template.enemies) {
-            GameObject enemy = Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
-            enemy.GetComponent<Health>().OnNoHp += room.GetComponent<Room>().OnEnemyKilled;
+        // // Add some enemies ;D
+        // foreach (EnemyType enemyType in template.enemies) {
+        //     GameObject enemy = Instantiate(factory.GetEnemyPrefab(enemyType), room.transform);
+        //     enemy.GetComponent<Health>().OnNoHp += room.GetComponent<Room>().OnEnemyKilled;
 
-            int x = GameUtils.Random.Randint((int) -Dungeon.HalfWidth+1, (int) Dungeon.HalfWidth-1);
-            int y = GameUtils.Random.Randint((int) -Dungeon.HalfHeight+1, (int) Dungeon.HalfHeight-1);
-            enemy.transform.position = new Vector2(x, y);
-        }
+        //     int x = GameUtils.Random.Randint((int) -Dungeon.HalfWidth+1, (int) Dungeon.HalfWidth-1);
+        //     int y = GameUtils.Random.Randint((int) -Dungeon.HalfHeight+1, (int) Dungeon.HalfHeight-1);
+        //     enemy.transform.position = new Vector2(x, y);
+        //}
 
         return room;
     }

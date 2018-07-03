@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class Room: MonoBehaviour {
 
     private List<Door> doors;
-
+    private List<Transform> obstacles = new List<Transform>();
     // True if all enemies have been killed
     private bool IsCompleted;
 
@@ -17,10 +17,26 @@ public class Room: MonoBehaviour {
 
     public void Start() {
         doors = FetchUtils.FetchChildrenWithComponent<Door>(transform);
+        List<Destructible> obstaclecomps = new List<Destructible>();
+        gameObject.GetComponentsInChildren<Destructible>(false, obstaclecomps);
+        foreach (Destructible comp in obstaclecomps) {
+            comp.gameObject.GetComponent<Health>().OnNoHp += OnDestructibleDestructed;
+            obstacles.Add(comp.transform);
+        }
+
+        // Update number of enemies and link their health to our count function
+        foreach (EnemyBehaviour enemyBehaviour in gameObject.GetComponentsInChildren<EnemyBehaviour>()) {
+            enemiesAlive += 1;
+            enemyBehaviour.gameObject.GetComponent<Health>().OnNoHp += OnEnemyKilled;
+        }
     }
 
     public List<Door> Doors {
         get {return doors;}
+    }
+
+    public List<Transform> Obstacles {
+        get {return obstacles;}
     }
 
     // -------------------------------------
@@ -92,7 +108,7 @@ public class Room: MonoBehaviour {
         return null;
     }
 
-    public void OnEnemyKilled(GameObject go) {
+    private void OnEnemyKilled(GameObject go) {
         enemiesAlive -= 1;
 
         if (enemiesAlive <= 0) {
@@ -100,5 +116,10 @@ public class Room: MonoBehaviour {
                 door.Open();
             }
         }
+    }
+
+    private void OnDestructibleDestructed(GameObject destructed) {
+        obstacles.Remove(destructed.transform);
+        Destroy(destructed);
     }
 }

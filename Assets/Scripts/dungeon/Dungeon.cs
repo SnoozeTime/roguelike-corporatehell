@@ -142,45 +142,76 @@ public class Dungeon: MonoBehaviour {
         currentIndex = nextIndex;
     }
 
-    private GameObject InstantiateAsset(GameObject prefab, Vector2 position) {
-        Vector3 position3 = (Vector3) position;
-        return Instantiate(prefab, position3, Quaternion.identity, transform) as GameObject;
-    }
-
     // ---------------------------------------------------------
     // Used by the controller to restrict movement near the doors
     // ---------------------------------------------------------
 
     // A player/controller can go north if the door is opened and he is
-    // aligned with it.
-    public bool CanGoNorth(Vector2 position) {
+    // aligned with it. Also, current obstacles in the room will prevent
+    // from moving in a direction.
+    public bool CanGoNorth(Vector2 position, float increment) {
         Room room = GetCurrentRoom();
         bool isAligned = (position.x > -.5 && position.x < 0.5);
         bool isInRoom = position.y < 3.5;
-
-        return isInRoom || (isAligned && room.IsNorthDoorOpened());
+        bool somethingInWay = IsSomethingInTheWay(position,
+                                                  new Vector2(0, 1),
+                                                  increment);
+        return !somethingInWay && (isInRoom || (isAligned && room.IsNorthDoorOpened()));
     }
 
-    public bool CanGoSouth(Vector2 position) {
+    public bool CanGoSouth(Vector2 position, float increment) {
         Room room = GetCurrentRoom();
         bool isInRoom = position.y > -3.5;
         bool isAligned = (position.x > -.5 && position.x < 0.5);
-
-        return isInRoom || (isAligned && room.IsSouthDoorOpened());
+        bool somethingInWay = IsSomethingInTheWay(position,
+                                                  new Vector2(0, -1),
+                                                  increment);
+        return !somethingInWay && (isInRoom || (isAligned && room.IsSouthDoorOpened()));
     }
 
-    public bool CanGoEast(Vector2 position) {
+    public bool CanGoEast(Vector2 position, float increment) {
         Room room = GetCurrentRoom();
         bool isAligned = (position.y > 0 && position.y < 0.5);
         bool isInRoom = position.x < 7.5;
-        return isInRoom || (isAligned && room.IsEastDoorOpened());
+        bool somethingInWay = IsSomethingInTheWay(position,
+                                                  new Vector2(1, 0),
+                                                  increment);
+        return !somethingInWay && (isInRoom || (isAligned && room.IsEastDoorOpened()));
     }
 
-    public bool CanGoWest(Vector2 position) {
+    public bool CanGoWest(Vector2 position, float increment) {
         Room room = GetCurrentRoom();
         bool isAligned = (position.y > 0 && position.y < 0.5);
         bool isInRoom = position.x > -7.5;
+        bool somethingInWay = IsSomethingInTheWay(position,
+                                                  new Vector2(-1, 0),
+                                                  increment);
 
-        return isInRoom || (isAligned && room.IsWestDoorOpened());
+        return !somethingInWay && (isInRoom || (isAligned && room.IsWestDoorOpened()));
+    }
+
+    // something in the wayyyy! huuum uuuummm... something in the waaaay
+    public bool IsSomethingInTheWay(Vector2 currentPosition,
+                                    Vector2 direction,
+                                    float positionIncrement) {
+        Vector2 futurePosition = currentPosition + positionIncrement * direction;
+        Room room = GetCurrentRoom();
+
+        foreach (Transform obstacle in room.Obstacles) {
+            Collider2D obsCollider = obstacle.gameObject.GetComponent<Collider2D>();
+
+            if (obsCollider == null) {
+                Debug.Log("No collider for the obstacle. Is that allowed?");
+            } else {
+                bool overlap = obsCollider.OverlapPoint(futurePosition);
+
+                if (overlap == true) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
     }
 }

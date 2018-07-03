@@ -160,20 +160,22 @@ public class RogueController : MonoBehaviour {
     private bool Move(int horizontal, int vertical) {
 
         Vector2 basePosition = transform.position;
-        if (horizontal > 0 && dungeon.CanGoEast(basePosition)) {
-            basePosition.x += speed * Time.deltaTime;
+        float increment = speed * Time.deltaTime;
+        // add 0.5 (half size). TODO For bigger enemy, put that as attribube
+        if (horizontal > 0 && dungeon.CanGoEast(basePosition, increment+0.5f)) {
+            basePosition.x += increment;
         }
 
-        if (horizontal < 0 && dungeon.CanGoWest(basePosition)) {
-            basePosition.x -= speed * Time.deltaTime;
+        if (horizontal < 0 && dungeon.CanGoWest(basePosition, increment+0.5f)) {
+            basePosition.x -= increment;
         }
 
-        if (vertical > 0 && dungeon.CanGoNorth(basePosition)) {
-             basePosition.y += speed * Time.deltaTime;
+        if (vertical > 0 && dungeon.CanGoNorth(basePosition, increment+0.5f)) {
+             basePosition.y += increment;
         }
 
-        if (vertical < 0 && dungeon.CanGoSouth(basePosition)) {
-            basePosition.y -= speed * Time.deltaTime;
+        if (vertical < 0 && dungeon.CanGoSouth(basePosition, increment+0.5f)) {
+            basePosition.y -= increment;
 
         }
         transform.position = basePosition;

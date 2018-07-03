@@ -96,8 +96,8 @@ public class EnemyBehaviour: ControllerBehaviour {
         AttackControl attackControl = new AttackControl();
         attackControl.shouldFire = blendedFire >= 0.5;
         attackControl.selectNextWeapon = (int) Math.Round(blendedNextWeapon, MidpointRounding.AwayFromZero);
-        attackControl.direction = new Vector2((int) Math.Round(blendedAttackDirection.x, MidpointRounding.AwayFromZero),
-                                              (int) Math.Round(blendedAttackDirection.y, MidpointRounding.AwayFromZero));
+        attackControl.direction = blendedAttackDirection.normalized;
+
 
         control.movementControl = movementControl;
         control.attackControl = attackControl;
